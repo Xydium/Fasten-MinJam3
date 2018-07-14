@@ -6,6 +6,8 @@ const CHARS_PER_SCREEN = CHARS_PER_LINE * LINES
 
 const FR = "____________________________________________________________"
 
+var queue = []
+
 const Messages = {
 	GRAPPLE = [
 		"Why do I have so many %ss?",
@@ -41,12 +43,21 @@ const Messages = {
 		"AAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAA AAAAAAAAAAAAAAAAAAA%s"
 	],
 	RAGE = [
+		"Y'know, %ss weren't that good. Destroy them!"
 	],
 	END_RAGE = [
+		"Alright, that's enough destruction for now.%s"
 	]
 }
 
-func show_message(message, antique_name = ""):
-	if $Anim.is_playing(): return
+func _process(delta):
+	if not queue.empty() and not $Anim.is_playing():
+		var entry = queue.pop_front()
+		show_message(entry[0], entry[1])
+
+func show_message(message, antique_name = "", should_queue = false):
+	if $Anim.is_playing(): 
+		if should_queue: queue.append([message, antique_name])
+		return
 	$Text.text = message[int(rand_range(0, len(message)))] % antique_name
 	$Anim.play("ShowText")

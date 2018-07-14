@@ -22,7 +22,7 @@ func _process(delta):
 			player.grapple_speed  *= 0.25
 		else:
 			game.scroll_speed -= 50
-		$"..".explode_at(position)
+		$"..".explode_at(position, real_name)
 		mlog.show_message(mlog.Messages.DESTROYED, real_name)
 		destroyed = true
 		queue_free()

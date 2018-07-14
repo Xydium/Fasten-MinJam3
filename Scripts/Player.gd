@@ -5,6 +5,7 @@ const FREE_MOVE_ACCEL = 200 #px/sec/sec
 const GRAPPLE_TOLERANCE =20 #px
 const BOOST_FACTOR = 0.1
 const MIN_GRAPPLE_RADIUS = 32 #px
+const RAGE_DURATION = 60 #sec
 const DIR = {
 	"OrbitUp": Vector2(0, -1),
 	"OrbitLeft": Vector2(-1, 0),
@@ -23,6 +24,8 @@ var grapple_radius = INF
 var grapple_boost_on_release = 0
 var grapple_orbit = false
 var grapple_dtheta = 0.0
+var rage_target = null
+var rage_duration = -RAGE_DURATION
 
 var velocity = Vector2(0, 0)
 var restore_velocity = Vector2(0, 0)
@@ -40,6 +43,11 @@ func _process(delta):
 	else:
 		orbit_grapple(delta)
 		check_for_ungrapple()
+	var rage_positive = rage_duration > 0
+	rage_duration -= delta
+	if rage_duration < 0.0 and rage_positive:
+		rage_target = null
+		mlog.show_message(mlog.Messages.END_RAGE, "", true)
 
 func check_for_grapple():
 	if Input.is_action_just_pressed("Grapple"):
