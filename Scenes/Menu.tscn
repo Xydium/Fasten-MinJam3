@@ -1,0 +1,133 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/Menu.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Wood.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/NoAlias.tres" type="Material" id=3]
+[ext_resource path="res://Sounds/GameTrackDrums.wav" type="AudioStream" id=4]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Sprite
+
+const PIXELS_TO_LOOP = 16
+const SPEED_FACTOR = 0.1
+
+func _process(delta):
+	scroll_background(delta)
+
+func scroll_background(delta):
+	offset.y += 1 * SPEED_FACTOR * PIXELS_TO_LOOP * delta
+	offset.y = fmod(offset.y, PIXELS_TO_LOOP)
+"
+
+[sub_resource type="DynamicFontData" id=2]
+
+hinting = 0
+font_path = "res://FFFFORWA.TTF"
+
+[sub_resource type="DynamicFont" id=3]
+
+size = 36
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 2 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="DynamicFontData" id=4]
+
+hinting = 0
+font_path = "res://FFFFORWA.TTF"
+
+[sub_resource type="DynamicFont" id=5]
+
+size = 12
+use_mipmaps = false
+use_filter = false
+font_data = SubResource( 4 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="Menu" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="." index="0"]
+
+position = Vector2( -36, -36 )
+z_as_relative = false
+texture = ExtResource( 2 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 264, 432 )
+script = SubResource( 1 )
+
+[node name="Title" type="Label" parent="." index="1"]
+
+material = ExtResource( 3 )
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_top = 14.0
+margin_right = 80.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+text = "Fasten"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Margin", "Material", "custom_fonts" ]
+
+[node name="Controls" type="Label" parent="." index="2"]
+
+material = ExtResource( 3 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 80.0
+margin_right = 216.0
+margin_bottom = 357.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 5 )
+text = "A Minimalistic Jam 3 Entry
+
+
+Controls
+
+LMB - Grapple
+Space/RMB - Ungrapple
+WASD/Arrows - Orbit
+
+Enter - Start Game
+Escape - Quit Game
+
+
+
+(C) Xydium 2018"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Margin", "Material", "Rect", "custom_fonts" ]
+
+[node name="Music" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
+
+
