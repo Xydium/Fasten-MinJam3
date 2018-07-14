@@ -7,8 +7,9 @@ const MODEM = preload("res://Sprites/Modem.png")
 const WALKMAN = preload("res://Sprites/Walkman.png")
 const VHS_TAPE = preload("res://Sprites/VHSTape.png")
 const NES_CONTROLLER = preload("res://Sprites/NESController.png")
-const TEXTURES = [COMPUTER, MODEM, WALKMAN, VHS_TAPE, NES_CONTROLLER]
-const NAMES = ["Commodore64", "56k Modem", "Walkman", "VHS Tape", "NES"]
+const VINYL = preload("res://Sprites/Vinyl.png")
+const TEXTURES = [COMPUTER, MODEM, WALKMAN, VHS_TAPE, NES_CONTROLLER, VINYL]
+const NAMES = ["Commodore64", "56k Modem", "Walkman", "VHS Tape", "NES", "Record"]
 
 onready var game = $".."
 onready var player = $"../Player"

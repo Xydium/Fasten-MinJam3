@@ -2,10 +2,11 @@ extends Sprite
 
 const GRAPPLE_PULL = 200 #px/sec/sec
 const FREE_MOVE_ACCEL = 200 #px/sec/sec
-const GRAPPLE_TOLERANCE =20 #px
+const GRAPPLE_TOLERANCE = 32 #px
 const BOOST_FACTOR = 0.1
 const MIN_GRAPPLE_RADIUS = 32 #px
 const RAGE_DURATION = 60 #sec
+const RESTORE_STRENGTH = 4
 const DIR = {
 	"OrbitUp": Vector2(0, -1),
 	"OrbitLeft": Vector2(-1, 0),
@@ -15,7 +16,7 @@ const DIR = {
 
 onready var game = $"/root/Game"
 onready var mlog = $"/root/Game/UI/Monologue"
-onready var spawn_pos = Vector2(game.RESOLUTION.x / 2, game.RESOLUTION.y - 48)
+onready var spawn_pos = Vector2(game.RESOLUTION.x / 2, game.RESOLUTION.y - 124)
 
 var grappling = false
 var grapple_target = null
@@ -143,8 +144,8 @@ func return_to_spawn_position(delta):
 	velocity.x *= 0.97
 	velocity.y *= 0.99
 	position += velocity * delta
-	position.x = lerp(position.x, spawn_pos.x, 0.03)
-	position.y = lerp(position.y, spawn_pos.y, 0.03)
+	position.x = lerp(position.x, spawn_pos.x, RESTORE_STRENGTH * delta)
+	position.y = lerp(position.y, spawn_pos.y, RESTORE_STRENGTH * delta)
 	restore_velocity = (position - unlerped) / delta
 
 func free_move(delta):
