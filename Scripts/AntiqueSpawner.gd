@@ -38,15 +38,15 @@ func explode_at(pos, real_name):
 	explosion.emitting = true
 	effects.add_child(explosion)
 	
-	if player.rage_target == real_name:
-		game.score(game.Scoring.DESTROYED, -1.0)
-	else:
-		game.score(game.Scoring.DESTROYED, 1.0)
-	
-	if player.rage_duration <= -player.RAGE_DURATION and randf() < 0.1:
-		player.rage_target = real_name
-		player.rage_duration = player.RAGE_DURATION
-		mlog.show_message(mlog.Messages.RAGE, player.rage_target, true)
+#	if player.rage_target == real_name:
+#		game.score(game.Scoring.DESTROYED, -1.0)
+#	else:
+	game.score(game.Scoring.DESTROYED, 1.0)
+#
+#	if player.rage_duration <= -player.RAGE_DURATION and randf() < 0.1:
+#		player.rage_target = real_name
+#		player.rage_duration = player.RAGE_DURATION
+#		mlog.show_message(mlog.Messages.RAGE, player.rage_target, true)
 
 func get_spawn_interval():
-	return 1 + 0.05 - 1 * game.scroll_speed / game.MAX_SCROLL_SPEED #(max - min) + min - speed / maxspeed
+	return 1.5 + 0.05 - 1.5 * game.scroll_speed / game.MAX_SCROLL_SPEED #(max - min) + min - speed / maxspeed

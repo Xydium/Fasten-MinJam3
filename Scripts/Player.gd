@@ -25,6 +25,7 @@ var grapple_radius = INF
 var grapple_boost_on_release = 0
 var grapple_orbit = false
 var grapple_dtheta = 0.0
+var grapple_circles = 0
 var rage_target = null
 var rage_duration = -RAGE_DURATION
 
@@ -66,6 +67,7 @@ func check_for_grapple():
 				if flip_h and grapple_speed > 0 or not flip_h and grapple_speed < 0:
 					grapple_speed *= -1
 				grapple_radius = INF
+				grapple_circles = 0
 				$GrappleOn.play()
 				mlog.show_message(mlog.Messages.GRAPPLE, antique.real_name)
 				break
@@ -100,6 +102,7 @@ func ungrapple():
 	grapple_boost_on_release = 0
 	grapple_dtheta = 0.0
 	grapple_orbit = false
+	grapple_circles = 0
 
 #Forgive me for this code, Flying Spaghetti Monster...
 func orbit_grapple(delta):
@@ -135,9 +138,10 @@ func orbit_grapple(delta):
 		position += velocity * delta
 		position = (position - grapple_target.position).normalized() * grapple_radius + grapple_target.position
 		grapple_dtheta += abs(position.angle_to_point(grapple_target.position) - theta)
-		if grapple_dtheta > 2*PI:
+		if grapple_dtheta > PI and grapple_circles < 3:
 			game.score(game.Scoring.FULL_CIRCLE, 1.0)
 			grapple_dtheta = 0
+			grapple_circles += 1
 
 func return_to_spawn_position(delta):
 	var unlerped = Vector2(position)

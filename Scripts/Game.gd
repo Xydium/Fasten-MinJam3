@@ -9,7 +9,7 @@ enum Scoring {
 	SURVIVED = 10,
 	GRAPPLED = 100,
 	BOOSTED = 50,
-	FULL_CIRCLE = 200,
+	FULL_CIRCLE = 2500,
 	DESTROYED = -5000
 }
 
@@ -27,6 +27,8 @@ func _process(delta):
 	distance += scroll_speed * delta
 	if distance >= MAX_DISTANCE and not done:
 		done = true
+		$UI/Monologue/Anim.stop()
+		$UI/Monologue/Speak.stop()
 		$UI/Veil.visible = true
 		$UI/Veil/Score.text = str(int(score * (1 + MAX_DISTANCE / ($UI/Base/Time.time * MAX_SCROLL_SPEED))))
 		$UI/Veil/Anim.play("FadeIn")

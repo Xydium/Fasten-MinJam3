@@ -53,10 +53,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 2.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ -10.0, -80.0 ]
+"values": [ 0.0, -80.0 ]
 }
 
-[node name="Monologue" type="Polygon2D" index="0"]
+[node name="Monologue" type="Polygon2D"]
 
 visible = false
 polygon = PoolVector2Array( -72, -24, 72, -24, 72, 24, -72, 24 )
@@ -116,8 +116,8 @@ blend_times = [  ]
 
 stream = ExtResource( 4 )
 volume_db = -80.0
-pitch_scale = 1.0
-autoplay = false
+pitch_scale = 3.0
+autoplay = true
 mix_target = 0
 bus = "Master"
 
